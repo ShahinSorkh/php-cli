@@ -1,0 +1,34 @@
+{
+    "name": "shso/cli",
+    "description": "Usefull cli related functions",
+    "license": "MIT",
+    "time": "2019-05-22",
+    "homepage": "https://github.com/ShahinSorkh/php-cli",
+    "readme": "README.md",
+    "keywords": ["cli"],
+    "type": "library",
+    "authors": [
+        {
+            "name": "Shahin Sorkh",
+            "email": "sorkh.shahin@hotmail.com",
+            "homepage": "https://shahinsorkh.github.io"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/ShahinSorkh/php-cli/issues"
+    },
+    "require": {
+        "php": ">7.0",
+        "illuminate/support": "^5.5"
+    },
+    "autoload": {
+        "files": ["cli.php"]
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "prefer-dist": true,
+        "sort-packages": true,
+        "optimize-autoloader": true
+    }
+}
