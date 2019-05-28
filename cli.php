@@ -65,6 +65,24 @@ function print_usage(array $usages)
         foreach ($args as $arg)
             $use .= rtrim(" $arg");
         $use .= PHP_EOL;
+
+        $desc = collect(array_get($usage, 'desc', []));
+        $longest_key = $desc->keys()->map('trim')
+            ->map(function ($k) { return strlen($k); })->max();
+        foreach ($desc as $key => $value) {
+            $use .= str_pad('', 11, ' ');
+            $use .= str_pad($key, $longest_key, ' ') . ' - ';
+            $sentence = '';
+            foreach (preg_split('/[\b\s]+/', $value) as $word) {
+                if (strlen($sentence) >= 70) {
+                    $use .= trim($sentence) . PHP_EOL;
+                    $use .= str_pad('', $longest_key + 14, ' ');
+                    $sentence = '';
+                }
+                $sentence .= $word . ' ';
+            }
+            $use .= trim($sentence) . PHP_EOL;
+        }
     }
 
     file_put_contents(opt('help', false) || opt('h', false) ? 'php://stdout' : 'php://stderr', $use);
