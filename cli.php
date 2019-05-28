@@ -47,9 +47,10 @@ function print_usage(array $usages)
 {
     $use = '';
     foreach ($usages as $usage) {
-        $use .= empty($use) ? "\tUSAGE: " : "\t       ";
-        $opts = array_get($usage, 'opts', []);
+        $use .= str_pad(empty($use) ? 'USAGE: ' : '', 7, ' ', STR_PAD_LEFT);
+
         $args = array_get($usage, 'args', []);
+        $opts = array_get($usage, 'opts', []);
 
         $use .= 'php ' . arg(0);
         foreach ($opts as $opt => $arg) {
@@ -57,9 +58,10 @@ function print_usage(array $usages)
             $opt = implode('', array_slice(str_split($opt), 1));
             $opt = strlen($opt) === 1 ? "-$opt" : "--$opt";
             $opt_use = rtrim("$opt $arg");
-            $use .= ' ' . ($required === '*' ? $opt_use:"[$opt_use]");
+            $use .= ' ' . ($required === '*' ? $opt_use : "[$opt_use]");
         }
-        $use .= empty($opts) ? '':' --';
+        $use .= empty($opts) || empty($args) ? '' : ' --';
+
         foreach ($args as $arg)
             $use .= rtrim(" $arg");
         $use .= PHP_EOL;
