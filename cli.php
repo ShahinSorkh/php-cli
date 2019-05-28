@@ -38,7 +38,7 @@ function usage(array ...$usages)
                 return;
             }
 
-        echo 'Invalid arguments or options.', PHP_EOL;
+        file_put_contents('php://stderr', '[ERR] Invalid arguments or options.' . PHP_EOL . PHP_EOL);
     }
     print_usage($usages);
 }
@@ -64,7 +64,8 @@ function print_usage(array $usages)
             $use .= rtrim(" $arg");
         $use .= PHP_EOL;
     }
-    echo $use;
+
+    file_put_contents(opt('help', false) || opt('h', false) ? 'php://stdout' : 'php://stderr', $use);
     exit(opt('help', false) || opt('h', false) ? 0 : 1);
 }
 
