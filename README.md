@@ -1,14 +1,91 @@
 # php-cli
-Usefull cli related functions for php
+Enhance php cli scripts experiance.
 
-## CLI Syntax
+## Script Usage
+Assuming following cli:
+
+```sh
+$ php script.php -f --action ACTION -- ARG1 ARG2 ARG3
+```
+
+### Count arguments
+
+```php
+cli\argc(); // returns 3
+```
+
+### Get arguments
+
+```php
+cli\arg(); // returns ['script.php', 'ARG1', 'ARG2', 'ARG3']
+cli\arg(2); // returns 'ARG2'
+cli\arg(4, 'foo'); // returns 'foo'
+```
+
+### Get options
+
+```php
+cli\opt(); // returns ['f' => true, 'action' => 'ACTION']
+cli\opt('f'); // returns true
+cli\opt('action'); // returns 'ACTION'
+cli\opt('q'); // returns null
+cli\opt('foo', 'bar'); // returns 'bar'
+```
+
+## Define usage
+You can define a **strict** usage with **fixed** options and arguments.
+To do so, you should use `cli\usage()` method which takes an array as
+argument with possible keys of `args`, `opts`, `desc`.
+
+### Define arguments
+Arguments can be optional.
+
+```php
+cli\usage([
+    'args' => [ 'REQUIRED_ARG', '[OPTIONAL_ARG]' ],
+]);
+```
+
+### Define options
+Options can be optional and can accept arguments.
+Also options can be short or long.
+
+```php
+cli\usage([
+    'opts' => [
+        '-f' => null, // optional, without arg, short
+        '*c' => null, // required, without arg, short
+        '-o' => 'OPT_ARG', // optional, with arg, short
+        '-no-dev' => null, // optional, without arg, long
+        '*config' => 'CONFIG', // required, with arg, long
+    ],
+]);
+```
+
+### Define additional descriptions
+If you need to describe about options or arguments, you can do so.
+
+```php
+cli\usage([
+    'args' => [ 'CONFUSING_ARG' ],
+    'opts' => [
+        '-f' => null,
+    ],
+    'desc' => [
+        'CONFUSING_ARG' => 'Some descriptions that make the arg not confusing!',
+        '-f' => 'Describe -f option can force the operation or whatever.',
+    ],
+]);
+```
+
+## Command Line Usage
 This package supports following syntax:
 
 ```sh
 $ php script.php --opt --opt-with-arg OPT_ARG -- ARG [OPTIONAL_ARG]
 ```
 
-### Arguments
+### Passing arguments
 
 - Arguments has to be the last values. This means the following syntax is not
 acceptable:
@@ -45,7 +122,7 @@ $ cat somefile.txt | php script.php -
 
 It is possible to pass other arguments and options alongside.
 
-### Options
+### Passing options
 
 Every passed value starting with `-` before the first detected argument, is an
 option. Options can get additional value as **their** argument. like:
@@ -55,4 +132,8 @@ $ php script.php -f --file SOME_FILE
 $ php customzipcompress.php --rm --compression best -f FILE1,FILE2 -d DIR1
 ```
 
-_to be continued.._
+If you are going to pass arguments, options **has to be terminated with `--`**. like:
+
+```sh
+$ php script.php -t -g OPT_ARG -- ARG1
+```
