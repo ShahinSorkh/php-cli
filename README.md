@@ -1,6 +1,31 @@
 # php-cli
 Enhance php cli scripts experiance.
 
+## Install
+
+### Use Composer
+
+```sh
+$ composer require shso/cli
+```
+
+Composer will load the library automatically.
+
+### Manually
+Download the script:
+
+```sh
+$ curl -fL -O https://github.com/ShahinSorkh/php-cli/raw/master/src/cli.php
+# Or using wget
+$ wget https://github.com/ShahinSorkh/php-cli/raw/master/src/cli.php
+```
+
+Import in your scripts:
+
+```php
+require_once './cli.php';
+```
+
 ## Script Usage
 Assuming following cli:
 
