@@ -10,16 +10,16 @@
     "authors": [
         {
             "name": "Shahin Sorkh",
-            "email": "sorkh.shahin@hotmail.com",
-            "homepage": "https://shahinsorkh.github.io"
+            "email": "sorkh.shahin@protonmail.com",
+            "homepage": "https://shahinsorkh.ir"
         }
     ],
     "support": {
         "issues": "https://github.com/ShahinSorkh/php-cli/issues"
     },
     "require": {
-        "php": ">7.0",
-        "illuminate/support": "^5.5"
+        "php": ">7.1",
+        "illuminate/support": "^5.8"
     },
     "autoload": {
         "files": ["src/cli.php"]
