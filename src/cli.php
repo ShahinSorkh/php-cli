@@ -125,7 +125,7 @@ function progress(int $total, int $process)
         $filled = join(array_fill(0, floor($bar_length * $percent), '='));
         $bar = '['.str_pad("$c[gr]{$filled}$c[de]", $bar_length + strlen("$c[gr]$c[de]"), '-').']';
     } else $bar = '';
-    echo_w(sprintf("    $c[br]%10d$c[de]/$c[b]%10d$c[de] %s ($c[b]%3d%%$c[de])", $process, $total, $bar, $percent * 100));
+    echo_w(sprintf("    $c[br]%10d$c[de]/$c[br]%10d$c[de] %s ($c[br]%3d%%$c[de])", $process, $total, $bar, $percent * 100));
 }
 
 function argc()
